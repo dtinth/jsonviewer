@@ -65,6 +65,17 @@
           alert(String(e))
         }
       }
+      // Suggested from https://web.facebook.com/dtinth/posts/10212666503491680?comment_id=10212666520252099&reply_comment_id=10212666614574457
+      function save(data, filename) {
+        data = data || ''
+        if (typeof data === 'object') {
+          data = JSON.stringify(data, undefined, 2)
+        }
+        let blob = new Blob([data], {type: 'text/json'}), a = document.createElement('a')
+        a.download = filename || 'console.json'
+        a.href = window.URL.createObjectURL(blob)
+        a.click()
+      }
     </script>
     <script src="https://unpkg.com/lodash@4.17.15/lodash.js"></script>
   </body>
