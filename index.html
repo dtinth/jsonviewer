@@ -53,6 +53,21 @@
         }
       }
     </script>
+    <script>
+      window.onpaste = async e => {
+        e.preventDefault()
+        e.stopPropagation()
+        document.documentElement.classList.remove('loaded')
+        try {
+          const text = e.clipboardData.getData('text')
+          await new Promise(resolve => requestAnimationFrame(resolve))
+          window.data = JSON.parse(text)
+          document.documentElement.classList.add('loaded')
+        } catch (e) {
+          alert(String(e))
+        }
+      }
+    </script>
     <script src="https://unpkg.com/lodash@4.17.15/lodash.js"></script>
   </body>
 </html>
