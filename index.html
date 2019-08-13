@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Hello!</title>
+    <title>Dead simple JSON viewer</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/style.css">
   </head>  
   <body>
-    <h1>JSON Viewer</h1>
-    <p>
-      Please use Google Chrome 76+!
-    </p>
+    <h1>Dead simple JSON viewer</h1>
     <ol>
-      <li>Drag a JSON file into this window.</li>
-      <li>Yes!!!!!! Drop it here.</li>
-      <li>Open JavaScript console, and type in `data`.</li>
+      <li>Drag a JSON file into this window. <span id="feedback1">Yeah!!!!!!!! That’s it!!!! Drop it here!!!!!!</span></li>
+      <li id="feedback2">Open JavaScript console, and type in `data`.</li>
     </ol>
     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
     <script src="https://button.glitch.me/button.js"></script>
+    <script>
+      // Copy-and-pasted from https://developer.mozilla.org/en-US/docs/Web/API/Blob/text
+      Object.defineProperty(Blob.prototype, 'text', {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: function text() {
+          return new Response(this).text();
+        }
+      });
+    </script>
     <script>
       window.ondragover = e => {
         e.preventDefault()
@@ -30,10 +37,12 @@
       }
       window.ondrop = async e => {
         e.preventDefault()
+        document.documentElement.classList.remove('dropit')
         try {
           var dt = e.dataTransfer
           var files = dt.files
           data = JSON.parse(await files[0].text())
+          document.documentElement.classList.add('loaded')
         } catch (e) {
           alert(String(e))
         }
