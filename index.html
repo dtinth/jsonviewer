@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/style.css">
   </head>  
-  <body>
+  <body tabindex="0">
     <h1>Dead simple JSON viewer</h1>
     <ol>
-      <li class="step1">Drag a JSON file into this window. <span class="feedback1">Yeah!!!!!!!! That’s it!!!! Drop it here!!!!!!</span></li>
+      <li class="step1">Drag a JSON file (or paste some JSON string) into this window. <span class="feedback1">Yeah!!!!!!!! That’s it!!!! Drop it here!!!!!!</span></li>
       <li class="step2 feedback2">Open JavaScript console, and type in `data`.</li>
     </ol>
     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
@@ -52,9 +52,7 @@
           alert(String(e))
         }
       }
-    </script>
-    <script>
-      window.onpaste = async e => {
+      document.onpaste = async e => {
         e.preventDefault()
         e.stopPropagation()
         document.documentElement.classList.remove('loaded')
