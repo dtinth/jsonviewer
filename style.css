@@ -1,21 +1,20 @@
-/* CSS files add styling rules to your content */
-
-body {
+html {
   font-family: arimo, helvetica, arial, sans-serif;
   font-size: 32px;
-  
+  line-height: 1.5;
   margin: 2em;
   background: #353433;
   color: #fff;
+  overflow: hidden;
 }
 
 h1 {
-  font-style: italic;
   color: #8b8685;
+  line-height: 1;
 }
 
 .dropit {
-  background: yellow;
+  background: #090807;
 }
 
 #feedback1 {
@@ -35,6 +34,7 @@ h1 {
 
 .loaded #feedback2 {
   opacity: 1;
+  animation: 1s bump;
 }
 
 @keyframes shake {
@@ -139,4 +139,10 @@ h1 {
   98% { transform: translate(0px,0px); }
   99% { transform: translate(0px,0px); }
   100% { transform: translate(1px,1px); }
+}
+
+@keyframes bump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
