@@ -10,8 +10,8 @@
   <body>
     <h1>Dead simple JSON viewer</h1>
     <ol>
-      <li>Drag a JSON file into this window. <span id="feedback1">Yeah!!!!!!!! That’s it!!!! Drop it here!!!!!!</span></li>
-      <li id="feedback2">Open JavaScript console, and type in `data`.</li>
+      <li class="step1">Drag a JSON file into this window. <span class="feedback1">Yeah!!!!!!!! That’s it!!!! Drop it here!!!!!!</span></li>
+      <li class="step2 feedback2">Open JavaScript console, and type in `data`.</li>
     </ol>
     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
     <script src="https://button.glitch.me/button.js"></script>
@@ -27,21 +27,26 @@
       });
     </script>
     <script>
+      // From https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications
       window.ondragover = e => {
         e.preventDefault()
+        e.stopPropagation()
         document.documentElement.classList.add('dropit')
       }
       window.ondragleave = e => {
         e.preventDefault()
+        e.stopPropagation()
         document.documentElement.classList.remove('dropit')
       }
       window.ondrop = async e => {
         e.preventDefault()
+        e.stopPropagation()
         document.documentElement.classList.remove('dropit')
+        document.documentElement.classList.remove('loaded')
         try {
           var dt = e.dataTransfer
           var files = dt.files
-          data = JSON.parse(await files[0].text())
+          window.data = JSON.parse(await files[0].text())
           document.documentElement.classList.add('loaded')
         } catch (e) {
           alert(String(e))

@@ -17,24 +17,30 @@ h1 {
   background: #090807;
 }
 
-#feedback1 {
-  visibility: hidden;
+.feedback1 {
+  opacity: 0;
   display: inline-block;
   color: #d7fc70;
 }
 
-.dropit #feedback1 {
-  visibility: visible;
+.dropit .feedback1 {
+  opacity: 1;
   animation: shake 1s linear infinite;
 }
 
-#feedback2 {
+.feedback2 {
   opacity: 0.5;
 }
 
-.loaded #feedback2 {
+.loaded .feedback2 {
   opacity: 1;
   animation: 1s bump;
+}
+
+html:not(.loaded) .step1,
+html:.loaded .step2 {
+  color: #bef;
+  font-weight: bold;
 }
 
 @keyframes shake {
