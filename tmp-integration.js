@@ -1,17 +1,17 @@
 const startTmpSessionWith = (targetWindow, sessionId) => {
-  targetWindow.postMessage({
-    jsonrpc: '2.0',
-    method: 'tmp.getFile',
-    params: { sessionId },
-    id: 'getfile',
-  })
-  addEventListener('message', async e => {
+  window.addEventListener('message', async e => {
     if (e.data.id === 'getfile') {
       /* global parseJSON */
       window.data = parseJSON(await e.data.result.blob.text())
       document.documentElement.classList.add('loaded')
     }
   })
+  targetWindow.postMessage({
+    jsonrpc: '2.0',
+    method: 'tmp.getFile',
+    params: { sessionId },
+    id: 'getfile',
+  }, '*')
 }
 
 {
