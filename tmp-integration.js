@@ -8,7 +8,7 @@ const startTmpSessionWith = (targetWindow, sessionId) => {
   })
   targetWindow.postMessage({
     jsonrpc: '2.0',
-    method: 'tmp.getOpenedFile',
+    method: 'tmp/getOpenedFile',
     params: { sessionId },
     id: 'getfile',
   }, '*')
